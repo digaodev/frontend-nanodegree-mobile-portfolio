@@ -7,14 +7,14 @@
 
 // Manually load the plugins
 var gulp = require('gulp'),
-    autoprefixer = require('gulp-autoprefixer'), // https://www.npmjs.com/package/gulp-autoprefixer
+    htmlmin = require('gulp-htmlmin'); // https://www.npmjs.com/package/gulp-htmlmin
+autoprefixer = require('gulp-autoprefixer'), // https://www.npmjs.com/package/gulp-autoprefixer
     rename = require('gulp-rename'),       // https://www.npmjs.com/package/gulp-rename
     cssnano = require('gulp-cssnano'),      // https://www.npmjs.com/package/gulp-cssnano
     notify = require('gulp-notify'),       // https://www.npmjs.com/package/gulp-notify
     concat = require('gulp-concat'),       // https://www.npmjs.com/package/gulp-concat
     uglify = require('gulp-uglify'),       // https://www.npmjs.com/package/gulp-uglify
     imagemin = require('gulp-imagemin'),     // https://www.npmjs.com/package/image-min
-    livereload = require('gulp-livereload'),   // https://www.npmjs.com/package/gulp-livereload
     del = require('del'),               // https://www.npmjs.com/package/del
     ngrok = require('ngrok'), // https://www.npmjs.com/package/ngrok
     psi = require('psi'), // https://www.npmjs.com/package/psi
@@ -25,10 +25,19 @@ var port = 3000;
 var site = '';
 
 gulp.task('html', function () {
-    // Copy the html files to dist path
-    // From '*.html' to 'dist/';
+    // Process html files from root path with htmlmin;
+    // From '*.html' to 'dist';
+    // Rename to .min;
     gulp.src('*.html')
-        .pipe(gulp.dest('dist/'));
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(gulp.dest('dist'));
+
+    // Process html files from views path with htmlmin;
+    // From '*.html' to 'dist/views/';
+    // Rename to .min;
+    gulp.src('views/*.html')
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(gulp.dest('dist/views'));
 });
 
 gulp.task('styles', function () {
@@ -37,9 +46,9 @@ gulp.task('styles', function () {
     // Rename to .min;
     gulp.src('css/*.css')
         .pipe(autoprefixer()) //Browserslist will use defaults: > 1%, last 2 versions, Firefox ESR.
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        // .pipe(rename({
+        //     suffix: '.min'
+        // }))
         .pipe(cssnano())
         .pipe(gulp.dest('dist/css'));
 
@@ -48,9 +57,9 @@ gulp.task('styles', function () {
     // Rename to .min;
     gulp.src('views/css/*.css')
         .pipe(autoprefixer()) //Browserslist will use defaults: > 1%, last 2 versions, Firefox ESR.
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        // .pipe(rename({
+        //     suffix: '.min'
+        // }))
         .pipe(cssnano())
         .pipe(gulp.dest('dist/views/css'))
         .pipe(notify({
@@ -64,10 +73,10 @@ gulp.task('scripts', function () {
     // Concatenate to main.js;
     // Rename to .min;
     gulp.src('js/*.js')
-        .pipe(concat('main.js'))
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        // .pipe(concat('main.js'))
+        // .pipe(rename({
+        //     suffix: '.min'
+        // }))
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 
@@ -76,10 +85,10 @@ gulp.task('scripts', function () {
     // Concatenate to main.js;
     // Rename to .min;
     gulp.src('views/js/*.js')
-        .pipe(concat('main.js'))
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        // .pipe(concat('main.js'))
+        // .pipe(rename({
+        //     suffix: '.min'
+        // }))
         .pipe(uglify())
         .pipe(gulp.dest('dist/views/js'))
         .pipe(notify({
@@ -94,7 +103,6 @@ gulp.task('scripts', function () {
 
 gulp.task('images', function () {
     gulp.src('img/*')
-        .pipe(changed('dist/img'))
         .pipe(imagemin({
             optimizationLevel: 5,
             progressive: true,
@@ -108,7 +116,6 @@ gulp.task('images', function () {
     // Optimize the images;
 
     gulp.src('views/images/*')
-        .pipe(changed('dist/views/images'))
         .pipe(imagemin({
             optimizationLevel: 5,
             progressive: true,
@@ -122,11 +129,11 @@ gulp.task('images', function () {
 
 // Clean up the destination folders and rebuild the files in case any have been removed from the source and are left hanging out in the destination folder
 gulp.task('clean', function () {
-    return del(['dist/css', 'dist/js', 'dist/img', 'dist/views/css', 'dist/views/js', 'dist/views/images']);
+    return del(['dist/css', 'dist/js', 'dist/img', 'dist/views/css', 'dist/views/js', 'dist/views/images', 'dist/*.html']);
 });
 
 browserSync = require('browser-sync').create();
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
             baseDir: "./dist"
