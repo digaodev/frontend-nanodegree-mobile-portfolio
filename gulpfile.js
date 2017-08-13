@@ -18,8 +18,9 @@ autoprefixer = require('gulp-autoprefixer'), // https://www.npmjs.com/package/gu
     del = require('del'),               // https://www.npmjs.com/package/del
     ngrok = require('ngrok'), // https://www.npmjs.com/package/ngrok
     psi = require('psi'), // https://www.npmjs.com/package/psi
-    sequence = require('run-sequence'); // https://www.npmjs.com/package/run-sequence
-browserSync = require('browser-sync'); // https://www.npmjs.com/package/browser-sync
+    sequence = require('run-sequence'), // https://www.npmjs.com/package/run-sequence
+browserSync = require('browser-sync'), // https://www.npmjs.com/package/browser-sync
+critical = require('critical');
 
 var port = 3000;
 var site = '';
@@ -170,6 +171,7 @@ gulp.task('psi-desktop', function () {
 
 gulp.task('psi-sequence', function (callback) {
     return sequence(
+        'critical',
         'browser-sync',
         'ngrok-connect',
         // 'psi-desktop',
@@ -182,8 +184,20 @@ gulp.task('build', ['clean'], function () {
     gulp.start('html', 'styles', 'scripts', 'images');
 });
 
+gulp.task('critical', function () {
+    critical.generate({
+        inline: true,
+        base: 'dist',
+        src: 'index.html',
+        dest: 'index.html',
+        minify: true,
+        width: 320,
+        height: 480
+    });
+});
+
 gulp.task('psi', ['psi-sequence'], function () {
-    console.log('psi task complete');
+    console.log('All tasks completed');
     // process.exit();
 });
 
