@@ -26,7 +26,7 @@ When the dependencies are finished installing, run the command below to build an
 
 Run the following command to start the local server and launch the site automatically
 
-`gulp psi`
+`gulp serve`
 
 You should see a message like this at the end
 
@@ -39,7 +39,7 @@ serving your tunnel from: https://401b271e.ngrok.io
 [21:34:31] Finished 'psi' after 39 μs
 ```
 
-Take note of the `https://401b271e.ngrok.io` part of the message. Because `ngrok` is tunneling the connection, this address is going to be used in Google Page Speed Insights site, and the `401b271e` portion is generated automatically and randomly every time we run the `gulp psi` command
+Take note of the `https://401b271e.ngrok.io` part of the message. Because `ngrok` is tunneling the connection, this address is going to be used in Google Page Speed Insights site, and the `401b271e` portion is generated automatically and randomly every time we run the `gulp serve` command
 
 Visit the page [https://developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/), insert that address in the input and click `Analyze`
 
