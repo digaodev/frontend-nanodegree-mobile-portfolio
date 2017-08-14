@@ -3,12 +3,10 @@
 // https://www.smashingmagazine.com/2015/06/efficient-image-resizing-with-imagemagick/
 // https://discussions.udacity.com/t/gulp-and-setting-up-a-gulp-workflow-intermediate/24359/3
 
-//npm install --save-dev gulp gulp-autoprefixer gulp-rename gulp-cssnano gulp-notify gulp-concat gulp-uglify gulp-imagemin gulp-changed gulp-livereload del psi ngrok run-sequence gulp-exit
-
 // Manually load the plugins
 var gulp = require('gulp'),
-    htmlmin = require('gulp-htmlmin'); // https://www.npmjs.com/package/gulp-htmlmin
-autoprefixer = require('gulp-autoprefixer'), // https://www.npmjs.com/package/gulp-autoprefixer
+    htmlmin = require('gulp-htmlmin'), // https://www.npmjs.com/package/gulp-htmlmin
+    autoprefixer = require('gulp-autoprefixer'), // https://www.npmjs.com/package/gulp-autoprefixer
     rename = require('gulp-rename'),       // https://www.npmjs.com/package/gulp-rename
     cssnano = require('gulp-cssnano'),      // https://www.npmjs.com/package/gulp-cssnano
     notify = require('gulp-notify'),       // https://www.npmjs.com/package/gulp-notify
@@ -19,8 +17,8 @@ autoprefixer = require('gulp-autoprefixer'), // https://www.npmjs.com/package/gu
     ngrok = require('ngrok'), // https://www.npmjs.com/package/ngrok
     psi = require('psi'), // https://www.npmjs.com/package/psi
     sequence = require('run-sequence'), // https://www.npmjs.com/package/run-sequence
-browserSync = require('browser-sync'), // https://www.npmjs.com/package/browser-sync
-critical = require('critical');
+    browserSync = require('browser-sync'), // https://www.npmjs.com/package/browser-sync
+    critical = require('critical');
 
 var port = 3000;
 var site = '';
@@ -197,8 +195,6 @@ gulp.task('critical', function () {
 });
 
 gulp.task('psi', ['psi-sequence'], function () {
-    console.log('All tasks completed');
-    // process.exit();
 });
 
 
