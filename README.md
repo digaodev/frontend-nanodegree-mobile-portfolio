@@ -47,7 +47,7 @@ Visit the page [https://developers.google.com/speed/pagespeed/insights/](https:/
 
 Alternatively, you can run Google Page Speed Insights from `Gulp`. In the `gulpfile.js`, there is task called `psi-sequence`. Uncomment the blocks `psi-desktop` and `psi-mobile` and run the command below
 
-`gulp psi`
+`gulp serve`
 
 You should see the results of Google Page Speed Insights in the command line, without the need to visit the site.
 
@@ -64,7 +64,7 @@ Identify and perform optimizations to achieve a PageSpeed Insights score of 90 f
 * used web font loader(https://github.com/typekit/webfontloader) instead of requesting the web font in the html head tag
 
 #### PageSpeed Insights Score
-* 95/100 Mobile
+* 96/100 Mobile
 * 98/100 Desktop
 
 ### Part 2: Optimize Frames per Second in pizza.html
@@ -79,3 +79,4 @@ Identify and perform optimizations to achieve a PageSpeed Insights score of 90 f
 * reduced the number of sliding pizzas to 30 because 200 was unnecessary
 * used style.transform and translateX instead of style.left and basicLeft
 * added will-change to css class mover
+* moved the js capitalize function to a css rule
