@@ -194,7 +194,7 @@ gulp.task('critical', function () {
     });
 });
 
-gulp.task('psi', ['psi-sequence'], function () {
+gulp.task('serve', ['psi-sequence'], function () {
 });
 
 

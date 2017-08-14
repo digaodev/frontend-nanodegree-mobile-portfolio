@@ -144,9 +144,9 @@ pizzaIngredients.crusts = [
 
 // Name generator pulled from http://saturdaykid.com/usernames/generator.html
 // Capitalizes first letter of each word
-String.prototype.capitalize = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-};
+// String.prototype.capitalize = function () {
+//   return this.charAt(0).toUpperCase() + this.slice(1);
+// };
 
 // Pulls adjective out of array using random number sent from generator
 function getAdj(x) {
@@ -291,7 +291,8 @@ function generator(adj, noun) {
   var nouns = getNoun(noun);
   var randomAdjective = parseInt(Math.random() * adjectives.length);
   var randomNoun = parseInt(Math.random() * nouns.length);
-  var name = "The " + adjectives[randomAdjective].capitalize() + " " + nouns[randomNoun].capitalize();
+  // var name = "The " + adjectives[randomAdjective].capitalize() + " " + nouns[randomNoun].capitalize();
+  var name = "The " + adjectives[randomAdjective] + " " + nouns[randomNoun];
   return name;
 }
 
@@ -535,15 +536,22 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+// window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', animate);
+
+function animate() {
+    if (!window.animating) {
+        window.requestAnimationFrame(updatePositions);
+        window.animating = true;
+    }
+}
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function () {
   var cols = 8;
   var s = 256;
 
-  var movingPizzas1Elem = document.getElementById("#movingPizzas1");
-  console.log(movingPizzas1Elem);
+  var movingPizzas1Elem = document.getElementById("movingPizzas1");
   var elem;
   for (var i = 0; i < 30; i++) {
     elem = document.createElement('img');
@@ -553,8 +561,8 @@ document.addEventListener('DOMContentLoaded', function () {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    console.log(elem);
     movingPizzas1Elem.appendChild(elem);
   }
-  updatePositions();
+  // updatePositions();
+  animate();
 });

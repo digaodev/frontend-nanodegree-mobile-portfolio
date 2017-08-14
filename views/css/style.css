@@ -42,6 +42,10 @@ form {
   display: flex;
 }
 
+.randomPizzaContainer h4 {
+  text-transform: capitalize;
+}
+
 .randomPizzaContainer:after {
   content: "";
   display: table;
