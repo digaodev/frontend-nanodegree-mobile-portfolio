@@ -32,11 +32,11 @@ You should see a message like this at the end
 
 ``` bash
 [Browsersync] Serving files from: ./dist
-serving your tunnel from: https://401b271e.ngrok.io
-[21:34:31] Finished 'ngrok-connect' after 2.03 s
-[21:34:31] Finished 'psi-sequence' after 2.06 s
-[21:34:31] Starting 'psi'...
-[21:34:31] Finished 'psi' after 39 μs
+serving your tunnel from: https://54f15d8f.ngrok.io
+[11:19:23] Finished 'ngrok-connect' after 1.49 s
+[11:19:23] Finished 'psi-sequence' after 1.51 s
+[11:19:23] Starting 'serve'...
+[11:19:23] Finished 'serve' after 61 μs
 ```
 
 Take note of the `https://401b271e.ngrok.io` part of the message. Because `ngrok` is tunneling the connection, this address is going to be used in Google Page Speed Insights site, and the `401b271e` portion is generated automatically and randomly every time we run the `gulp serve` command
@@ -76,7 +76,7 @@ Identify and perform optimizations to achieve a PageSpeed Insights score of 90 f
 * changed the function changePizzaSizes to improve its loop perfomance when resize slider is activated
 * changed all instances from querySelector() to getElementById()
 * changed all instances from querySelectorAll() to getElementsByClassName()
-* reduced the number of sliding pizzas to 30 because 200 was unnecessary
+* reduced the number of sliding pizzas to dinamically determine it because 200 was unnecessary
 * used style.transform and translateX instead of style.left and basicLeft
 * added will-change to css class mover
 * moved the js capitalize function to a css rule
