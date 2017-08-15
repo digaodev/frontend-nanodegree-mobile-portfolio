@@ -73,7 +73,8 @@ Identify and perform optimizations to achieve a PageSpeed Insights score of 90 f
 Identify and perform optimizations to achieve a PageSpeed Insights score of 90 for both mobile and desktop.
 
 #### Changes
-* changed the function changePizzaSizes to improve its loop perfomance when resize slider is activated
+* improved the function changePizzaSizes to improve its loop perfomance when resize slider is activated
+* improved the function updatePosition to use requestAnimationFrame
 * changed all instances from querySelector() to getElementById()
 * changed all instances from querySelectorAll() to getElementsByClassName()
 * reduced the number of sliding pizzas to dinamically determine it because 200 was unnecessary
