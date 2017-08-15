@@ -30,6 +30,7 @@ form {
 }
 
 .mover {
+  /* added will-change to promote these items to the gpu */
   transform: translateZ(0);
   will-change: transform;
   position: fixed;
@@ -42,6 +43,7 @@ form {
   display: flex;
 }
 
+/* moved from js function in main.js to css rule for performance */ 
 .randomPizzaContainer h4 {
   text-transform: capitalize;
 }
