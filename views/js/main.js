@@ -462,7 +462,7 @@ var resizePizzas = function (size) {
   //   }
   // }
 
-    function changePizzaSizes(size) {
+  function changePizzaSizes(size) {
     // get the html collection of pizzas and its length
     // Changed querySelector to getElementByClassName for performance
     // because all the pizzas have the same values, these vars do not need to be inside the loop
@@ -520,6 +520,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
+  animating = false;
   window.performance.mark("mark_start_frame");
 
   // Changed querySelector to getElementByClassName for performance
@@ -545,26 +546,36 @@ function updatePositions() {
   }
 }
 
+var animating = false;
+
 // runs updatePositions on scroll
 // window.addEventListener('scroll', updatePositions);
-window.addEventListener('scroll', animate);
+window.addEventListener('scroll', animate, { passive: false });
 
 // added requestAnimationFrame call for better frame management to improve performance
 function animate() {
-    if (!window.animating) {
-        window.requestAnimationFrame(updatePositions);
-        window.animating = true;
-    }
+  // console.log(animating);
+  if (!window.animating) {
+    window.requestAnimationFrame(updatePositions);
+  }
+  window.animating = true;
 }
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function () {
   var cols = 8;
   var s = 256;
+  // find the value of total pizzas needed to fill the screen
+  var height = isNaN(window.innerHeight) ? window.clientHeight : window.innerHeight;
+  // console.log('height: ' + height);
+  var rows = height / s;
+  // console.log('cols*rows: ' + Math.floor(cols * rows));
+  var totalOfPizzas = Math.floor(cols * rows);
+  // console.log('totalOfPizzas: ' + totalOfPizzas);
   // Changed querySelector to getElementById for performance
   var movingPizzas1Elem = document.getElementById("movingPizzas1");
   var elem;
-  for (var i = 0; i < 30; i++) {
+  for (var i = 0; i < totalOfPizzas; i++) {
     elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
